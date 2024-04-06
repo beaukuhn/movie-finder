@@ -9,7 +9,7 @@ def main():
     movie_embedding_storage.run()
 
     # Create an instance of the MovieSimilarityFinder class
-    similarity_finder = MovieSimilarityFinder(cohere_key="your_cohere_key_here")
+    similarity_finder = MovieSimilarityFinder()
 
     # Search for similar movies based on a query from the terminal and loop until the user exits
     while True:
