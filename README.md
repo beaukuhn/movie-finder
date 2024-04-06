@@ -12,6 +12,7 @@ This project provides a comprehensive suite of tools for processing movie data, 
 - Query ChromaDB to find the top `n` similar movies to a given input.
 
 ## Structure
+```
 movie_finder/
 │
 ├── movie_processing/
@@ -22,6 +23,7 @@ movie_finder/
 ├── utils.py                   # Helper functions and utilities
 ├── main.py                    # Main script to run the application
 └── requirements.txt           # Dependencies for the project
+```
 
 ## Getting Started
 
