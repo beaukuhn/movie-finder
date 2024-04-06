@@ -21,7 +21,7 @@ def main():
         if query.lower() == "exit":
             break
         similar_movies = similarity_finder.search(query)
-        print("Similar movies:")
+        print("Similar movies:\n")
         for movie in similar_movies:
             print(movie)
         print("\n")
