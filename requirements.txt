@@ -1,5 +1,2 @@
 chromadb
 cohere
-requests
-pandas
-scikit-learn
