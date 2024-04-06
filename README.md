@@ -1,4 +1,4 @@
-# Movie Embedding and Similarity Finder
+# Similar Movie Finder
 
 ## Overview
 This project provides a comprehensive suite of tools for processing movie data, generating embeddings, and finding similar movies based on a given query. It consists of two main components:
@@ -34,24 +34,24 @@ movie_finder/
 1. Clone the repository:
    ```sh
    git clone https://github.com/<your-username>/<repository-name>.git
-
+   ```
 2. Install the required packages:
     ```sh
     pip install -r requirements.txt
-
+    ```
 ### Usage
 - Initialize and run the embedding storage pipeline:
 ```python
 from movie_processing.embedding_storage import EmbeddingStoragePipeline
 storage_pipeline = EmbeddingStoragePipeline('<cohere-api-key>')
 storage_pipeline.run()
-
-- Query for similar movies:
 ```
+- Query for similar movies:
+```python
 from movie_processing.similarity_finder import MovieSimilarityFinder
 similarity_finder = MovieSimilarityFinder()
 results = similarity_finder.find_similar_movies("Which movie is most similar to Star Wars?", top_n=5)
-
+```
 ## Authors
 - Beau Kuhn
 
