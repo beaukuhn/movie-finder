@@ -17,6 +17,7 @@ class MovieEmbeddingStoragePipeline:
     __COLLECTION_NAME = "movies"
     __COHERE_API_KEY = os.environ.get("COHERE_API_KEY")
     __BATCH_SIZE = 96
+    __LIMIT = 1000
 
     def __init__(self, cohere_key: str = __COHERE_API_KEY):
         self.__cohere_client = cohere.Client(cohere_key)
@@ -25,19 +26,43 @@ class MovieEmbeddingStoragePipeline:
             self.__COLLECTION_NAME
         )
 
-    def __create_batches(self, array, batch_size=__BATCH_SIZE):
+    def __get_subset(self, dataset, limit=__LIMIT):
         """
-        Create batches of a given size from an array.
+        Get a subset of the dataset of size limit.
 
         Args:
-            array: The input array.
+            dataset: The input dataset.
+            limit: The number of items to include in the subset.
+
+        Returns:
+            An iterator that yields up to limit items from the dataset.
+        """
+        count = 0
+        for item in dataset:
+            if count >= limit:
+                break
+            yield item
+            count += 1
+
+    def __create_batches(self, dataset, batch_size=__BATCH_SIZE):
+        """
+        Create batches of a given size from a dataset.
+
+        Args:
+            dataset: The input dataset, which is an iterable.
             batch_size: The size of each batch.
 
         Returns:
-            A list of batches.
+            An iterator that yields batches.
         """
-        for i in range(0, len(array), batch_size):
-            yield array[i : i + batch_size]
+        batch = []
+        for item in dataset:
+            batch.append(item)
+            if len(batch) == batch_size:
+                yield batch
+                batch = []
+        if batch:
+            yield batch  # Yield any remaining items as the last batch
 
     def load_movie_dataset_from_hugging_face(
         self,
@@ -56,7 +81,7 @@ class MovieEmbeddingStoragePipeline:
         """
         return datasets.load_dataset(dataset_name, streaming=streaming)
 
-    @retry_with_exponential_backoff(max_retries=10, backoff_factor=0.5)
+    @retry_with_exponential_backoff(max_retries=10, backoff_factor=0.1)
     def get_embeddings_from_cohere(self, batch) -> List[float]:
         """
         Get embeddings for a batch using the Cohere API.
@@ -73,29 +98,35 @@ class MovieEmbeddingStoragePipeline:
                     'Vote Count' (int): The count of votes or ratings received by the movie.
         """
         # Stringify each individual record in the batch
-        texts = [record["Title"] + ": " + record["Overview"] for record in batch]
-
-        return self.__cohere_client.embed(
-            texts=[texts],
+        texts = [record["Overview"] for record in batch]
+        print("Sending batch...")
+        response = self.__cohere_client.embed(
+            texts=texts,
             model=self.__EMBEDDING_MODEL,
             input_type="search_document",
+            batching=True,
         )
+        print("LOLOLO", response)
+        return response
 
     @retry_with_exponential_backoff(max_retries=10, backoff_factor=0.5)
-    def store_embeddings_in_chromadb(self, embeddings):
+    def store_embeddings_in_chromadb(self, batch, embeddings_batch):
         """
         Store embeddings in ChromaDB.
 
         Args:
             embeddings: A dictionary containing the texts and embeddings.
         """
-        texts, embeddings = embeddings["texts"], embeddings["embeddings"]
-        for text, embedding in zip(texts, embeddings):
+        print("Storing embeddings into ChromaDB...")
+        texts, embeddings = embeddings_batch.texts, embeddings_batch.embeddings
+        for idx, (text, embedding) in enumerate(zip(texts, embeddings)):
+            record = batch[idx]
+            print(record, "the record")
             self.__collection.add(
                 embeddings=[embedding],
-                metadatas=[text],
-                documents=[text],
-                ids=[uuid.uuid4()],
+                metadatas=record,
+                documents=[record],
+                ids=[str(uuid.uuid4())],
             )
 
     def run(self):
@@ -108,9 +139,16 @@ class MovieEmbeddingStoragePipeline:
             streaming=True,
         )
 
-        for batch in self.__create_batches(movie_dataset["train"]):
+        batch_number = 0
+
+        for batch in self.__create_batches(self.__get_subset(movie_dataset["train"])):
+            print(
+                f"Processing batch {batch_number}, size: {len(batch)}, total: {batch_number * self.__BATCH_SIZE}"
+            )
             # 1) Get embeddings for the record
-            embeddings_dict = self.get_embeddings_from_cohere(batch)
+            embeddings_batch = self.get_embeddings_from_cohere(batch)
 
             # 2) Store the embeddings in ChromaDB
-            self.store_embeddings_in_chromadb(embeddings_dict)
+            self.store_embeddings_in_chromadb(batch, embeddings_batch)
+
+            batch_number += 1

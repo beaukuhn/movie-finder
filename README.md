@@ -48,10 +48,17 @@ storage_pipeline.run()
 ```
 - Query for similar movies:
 ```python
-from movie_processing.similarity_finder import MovieSimilarityFinder
-similarity_finder = MovieSimilarityFinder()
-results = similarity_finder.search("Which movie is most similar to Star Wars?", top_n=5)
+python main.py
+...
+Enter a search query (or type 'exit' to quit): A movie about a group of allies embarking on an epic adventure through space
+Similar movies:
+The Terrornauts
+Plan 9 from Outer Space
+Gamera vs. Guiron
+Voyage to the Planet of Prehistoric Women
+Conquest of Space
 ```
+
 ## Authors
 - Beau Kuhn
 

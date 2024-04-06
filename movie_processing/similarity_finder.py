@@ -57,8 +57,7 @@ class MovieSimilarityFinder:
 
         # Conduct a cosine similarity search in the collection
         similar_movies = self.__collection.query(
-            query_embeddings=[query_embedding],
-            query_texts=[query_str],
+            query_embeddings=query_embedding.embeddings,
             n_results=top_n,
         )
-        return similar_movies
+        return [similar_movies["metadatas"][0][i]["Title"] for i in range(top_n)]

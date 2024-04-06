@@ -26,6 +26,7 @@ def retry_with_exponential_backoff(max_retries=5, backoff_factor=0.5):
                 try:
                     return func(*args, **kwargs)
                 except Exception as e:
+                    print(str(e))
                     retries += 1
                     if retries >= max_retries:
                         raise
