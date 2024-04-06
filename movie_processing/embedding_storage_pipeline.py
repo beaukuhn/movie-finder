@@ -37,7 +37,7 @@ class MovieEmbeddingStoragePipeline:
             streaming: Whether to stream the dataset for efficient processing
 
         Returns:
-            Dataset
+            Movie dataset
         """
         return datasets.load_dataset(dataset_name, streaming=streaming)
 
@@ -64,7 +64,7 @@ class MovieEmbeddingStoragePipeline:
             texts=[record_str],
             model=self.__EMBEDDING_MODEL,
             input_type="search_document",
-        )
+        )["embeddings"][0]
 
     def run(self):
         """
