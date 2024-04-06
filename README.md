@@ -49,9 +49,7 @@ storage_pipeline = EmbeddingStoragePipeline('<cohere-api-key>')
 storage_pipeline.run()
 ```
 - Query for similar movies:
-```python
-python main.py
-...
+```
 Enter a search query (or type 'exit' to quit): A movie about a group of allies embarking on an epic adventure through space
 Similar movies:
 The Terrornauts
