@@ -1,10 +1,10 @@
 import json
-from typing import List
 import uuid
 import cohere
 import chromadb
 import datasets
-from utils import retry_with_exponential_backoff, throttle
+from typing import List
+from utils import retry_with_exponential_backoff
 
 
 class MovieEmbeddingStoragePipeline:
