@@ -3,6 +3,9 @@ import cohere
 
 
 class MovieSimilarityFinder:
+    """
+    A class to find similar movies based on a search query.
+    """
 
     __MAX_TEXT_LENGTH = 512
     __EMBEDDING_MODEL = "embed-english-v3.0"
