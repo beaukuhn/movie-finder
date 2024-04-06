@@ -50,7 +50,7 @@ storage_pipeline.run()
 ```python
 from movie_processing.similarity_finder import MovieSimilarityFinder
 similarity_finder = MovieSimilarityFinder()
-results = similarity_finder.find_similar_movies("Which movie is most similar to Star Wars?", top_n=5)
+results = similarity_finder.search("Which movie is most similar to Star Wars?", top_n=5)
 ```
 ## Authors
 - Beau Kuhn
