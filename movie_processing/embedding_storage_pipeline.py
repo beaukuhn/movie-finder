@@ -1,4 +1,3 @@
-import json
 import os
 import uuid
 import cohere
@@ -74,7 +73,7 @@ class MovieEmbeddingStoragePipeline:
                     'Vote Count' (int): The count of votes or ratings received by the movie.
         """
         # Stringify each individual record in the batch
-        texts = [json.dumps(record) for record in batch]
+        texts = [record["Title"] + ": " + record["Overview"] for record in batch]
 
         return self.__cohere_client.embed(
             texts=[texts],
