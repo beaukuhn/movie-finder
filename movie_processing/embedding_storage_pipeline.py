@@ -1,4 +1,5 @@
 import json
+import os
 import uuid
 import cohere
 import chromadb
@@ -15,9 +16,10 @@ class MovieEmbeddingStoragePipeline:
     __MOVIE_DATASET_NAME = "SandipPalit/Movie_Dataset"
     __EMBEDDING_MODEL = "embed-english-v3.0"
     __COLLECTION_NAME = "movies"
+    __COHERE_API_KEY = os.environ.get("COHERE_API_KEY")
     __BATCH_SIZE = 96
 
-    def __init__(self, cohere_key: str):
+    def __init__(self, cohere_key: str = __COHERE_API_KEY):
         self.__cohere_client = cohere.Client(cohere_key)
         self.__chroma_db = chromadb.Client()
         self.__collection = self.__chroma_db.get_or_create_collection(

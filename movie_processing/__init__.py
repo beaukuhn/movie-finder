@@ -1,2 +1,2 @@
-from .embedding_storage import MovieEmbeddingStoragePipeline
+from .embedding_storage_pipeline import MovieEmbeddingStoragePipeline
 from .similarity_finder import MovieSimilarityFinder
