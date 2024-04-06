@@ -10,7 +10,7 @@ from utils import retry_with_exponential_backoff
 
 class MovieEmbeddingStoragePipeline:
     """
-    EmbeddingStoragePipeline class to process JSONL files and store embeddings in ChromaDB.
+    A pipeline to store movie embeddings in ChromaDB.
     """
 
     __MOVIE_DATASET_NAME = "SandipPalit/Movie_Dataset"
@@ -26,7 +26,7 @@ class MovieEmbeddingStoragePipeline:
             self.__COLLECTION_NAME
         )
 
-    def __create_batches(self, array, batch_size):
+    def __create_batches(self, array, batch_size=__BATCH_SIZE):
         """
         Create batches of a given size from an array.
 
@@ -109,9 +109,7 @@ class MovieEmbeddingStoragePipeline:
             streaming=True,
         )
 
-        for batch in self.__create_batches(
-            movie_dataset["train"][:: self.__BATCH_SIZE]
-        ):
+        for batch in self.__create_batches(movie_dataset["train"]):
             # 1) Get embeddings for the record
             embeddings_dict = self.get_embeddings_from_cohere(batch)
 
