@@ -47,7 +47,8 @@ class MovieEmbeddingStoragePipeline:
         Get embeddings for a record using the Cohere API.
 
         Args:
-            record: A dictionary containing movie details. Expected keys in the dictionary are:
+            record_str:
+                    A stringified dictionary containing movie details. Expected keys in the dictionary are:
                    'Release Date' (str): The release date of the movie in 'YYYY-MM-DD' format.
                    'Title' (str): The title of the movie.
                    'Overview' (str): A brief description of the movie.
