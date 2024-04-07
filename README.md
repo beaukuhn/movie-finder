@@ -52,11 +52,11 @@ storage_pipeline.run()
 ```
 Enter a search query (or type 'exit' to quit): A movie about a group of allies embarking on an epic adventure through space
 Similar movies:
+C 299,792 km/s
 The Terrornauts
-Plan 9 from Outer Space
-Gamera vs. Guiron
-Voyage to the Planet of Prehistoric Women
-Conquest of Space
+Space Sheriff Gavan: The Movie
+Tears of Steel
+Generation Last
 ```
 
 ## Authors
