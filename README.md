@@ -52,6 +52,7 @@ storage_pipeline.run()
 ```
 Enter a search query (or type 'exit' to quit): A movie about a group of allies embarking on an epic adventure through space
 Similar movies:
+
 C 299,792 km/s
 The Terrornauts
 Space Sheriff Gavan: The Movie
