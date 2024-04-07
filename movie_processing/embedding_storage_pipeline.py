@@ -62,7 +62,8 @@ class MovieEmbeddingStoragePipeline:
                 yield batch
                 batch = []
         if batch:
-            yield batch  # Yield any remaining items as the last batch
+            # Yield any remaining items as the last batch
+            yield batch
 
     def load_movie_dataset_from_hugging_face(
         self,
