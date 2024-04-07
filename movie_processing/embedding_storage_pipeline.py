@@ -17,7 +17,7 @@ class MovieEmbeddingStoragePipeline:
     __COLLECTION_NAME = "movies"
     __COHERE_API_KEY = os.environ.get("COHERE_API_KEY")
     __BATCH_SIZE = 96
-    __LIMIT = 1000
+    __LIMIT = 10000
 
     def __init__(self, cohere_key: str = __COHERE_API_KEY):
         self.__cohere_client = cohere.Client(cohere_key)
@@ -106,7 +106,6 @@ class MovieEmbeddingStoragePipeline:
             input_type="search_document",
             batching=True,
         )
-        print("LOLOLO", response)
         return response
 
     @retry_with_exponential_backoff(max_retries=10, backoff_factor=0.5)

@@ -12,6 +12,7 @@ This project provides a comprehensive suite of tools for processing movie data, 
 - Query ChromaDB to find the top `n` similar movies to a given input.
 
 ## Structure
+```
 movie_finder/
 │
 ├── movie_processing/
@@ -22,6 +23,7 @@ movie_finder/
 ├── utils.py                   # Helper functions and utilities
 ├── main.py                    # Main script to run the application
 └── requirements.txt           # Dependencies for the project
+```
 
 ## Getting Started
 
@@ -92,3 +94,12 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+
+I joined my previous startup as the tenth employee, playing a pivotal role in its growth to a 50-strong team. My tenure there was marked by versatility, primarily focusing on backend and infrastructure, while also occasionally contributing to frontend development. As a member of the Platform and Infrastructure team, I championed the integration of Large Language Models (LLMs) into our financial data warehouse architecture. This included implementing Retrieval-Augmented Generation (RAG), significantly enhancing our users' ability to interactively query and understand their financial data, such as inquiring about annual expenses or specific quarterly revenues.
+
+My dedication to innovation was further demonstrated when I significantly enhanced our transaction categorization accuracy by 100%, employing vector embeddings and a vector database, for which I won a company-wide hackathon.
+
+In addition to practical experience, I have also completed a graduate course in Machine Learning. This theoretical background complements my hands-on skills.
+
+Moreover, I am well-versed in thriving within a remote work culture, having demonstrated the ability to work effectively and diligently in such an environment. This experience has equipped me with the skills necessary to excel in a remote-friendly setting like Cohere's, particularly in teams spread across various time zones."
