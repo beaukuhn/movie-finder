@@ -120,7 +120,6 @@ class MovieEmbeddingStoragePipeline:
         texts, embeddings = embeddings_batch.texts, embeddings_batch.embeddings
         for idx, (text, embedding) in enumerate(zip(texts, embeddings)):
             record = batch[idx]
-            print(record, "the record")
             self.__collection.add(
                 embeddings=[embedding],
                 metadatas=record,
