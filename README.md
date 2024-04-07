@@ -35,7 +35,7 @@ movie_finder/
 ### Installation
 1. Clone the repository:
    ```sh
-   git clone https://github.com/<your-username>/<repository-name>.git
+   gh repo clone beaukuhn/movie-finder
    ```
 2. Install the required packages:
     ```sh
